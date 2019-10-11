@@ -9,10 +9,10 @@ const isDefined = value => (typeof value !== 'undefined' && value !== null && va
 export default (options: any = {}) => {
 	const env = isDefined(process.env.NODE_ENV) ? process.env.NODE_ENV : 'development';
 
-	const wd = isDefined(options) && isDefined(options.dir) ? options.dir : process.cwd();
+	const cwd = isDefined(options) && isDefined(options.dir) ? options.dir : process.cwd();
 
 	[`.env.${env}`, `.env`].forEach(relative => {
-		const absolute = join(wd, relative);
+		const absolute = join(cwd, relative);
 
 		if (existsSync(absolute)) {
 			const content = readFileSync(absolute, 'utf-8').toString();
