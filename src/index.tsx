@@ -9,7 +9,7 @@ const isDefined = value => (typeof value !== 'undefined' && value !== null && va
 export default (options: any = {}) => {
 	const env = isDefined(process.env.NODE_ENV) ? process.env.NODE_ENV : 'development';
 
-	const cwd = isDefined(options) && isDefined(options.dir) ? options.dir : process.cwd();
+	const cwd = isDefined(options) && isDefined(options.dir) ? join(process.cwd(), options.dir) : process.cwd();
 
 	const _cache = {};
 

@@ -1,4 +1,3 @@
-import { join } from 'path';
 import env from '../src';
 
 describe('dotenv-flexible', () => {
@@ -31,7 +30,7 @@ describe('dotenv-flexible', () => {
 	});
 	describe('custom dir tests', () => {
 		beforeAll(() => {
-			env({ dir: join(process.cwd(), 'fixtures') });
+			env({ dir: 'fixtures' });
 		});
 		test('basic value', () => {
 			expect(process.env.ONE).toEqual('two');
@@ -40,7 +39,7 @@ describe('dotenv-flexible', () => {
 	describe('custom dir, custom env', () => {
 		beforeAll(() => {
 			process.env.NODE_ENV = 'stage';
-			env({ dir: join(process.cwd(), 'fixtures') });
+			env({ dir: 'fixtures' });
 		});
 		test('basic value', () => {
 			expect(process.env.TWO).toEqual('three');
@@ -52,7 +51,7 @@ describe('dotenv-flexible', () => {
 	describe('default env', () => {
 		beforeAll(() => {
 			process.env.NODE_ENV = '';
-			env({ dir: join(process.cwd(), 'fixtures') });
+			env({ dir: 'fixtures' });
 		});
 		test('basic value', () => {
 			expect(process.env.FIVE).toEqual('ten');
