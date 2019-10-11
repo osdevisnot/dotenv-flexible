@@ -25,20 +25,19 @@ export default (options: any = {}) => {
 						// tslint:disable-next-line:prefer-const
 						let [, key, value] = keyVal;
 
-						while (value.indexOf('process.env.') !== -1) {
-							value = value.replace(/\$\{process.env.(.*?)\}/, (_, b) => {
-								if (isDefined(process.env[b])) {
-									return process.env[b];
-								} else {
-									log(
-										`Attempt to use 'undefined' value in interpolations. key: ${key}, interpolation: ${b}, value: ${process.env[b]}`,
-									);
-									return '';
-								}
-							});
-						}
-
 						if (!isDefined(process.env[key])) {
+							while (value.indexOf('process.env.') !== -1) {
+								value = value.replace(/\$\{process.env.(.*?)\}/, (_, b) => {
+									if (isDefined(process.env[b])) {
+										return process.env[b];
+									} else {
+										log(
+											`Attempt to use 'undefined' value in interpolations. key: ${key}, interpolation: ${b}, value: ${process.env[b]}`,
+										);
+										return '';
+									}
+								});
+							}
 							process.env[key] = value;
 						}
 					}
