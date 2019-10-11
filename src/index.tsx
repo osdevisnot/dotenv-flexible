@@ -26,7 +26,7 @@ export default (options: any = {}) => {
 						let [, key, value] = keyVal;
 
 						if (!isDefined(process.env[key])) {
-							while (value.indexOf('process.env.') !== -1) {
+							while (value.match(/\$\{process.env.(.*?)\}/)) {
 								value = value.replace(/\$\{process.env.(.*?)\}/, (_, b) => {
 									if (isDefined(process.env[b])) {
 										return process.env[b];
