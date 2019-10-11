@@ -22,6 +22,9 @@ describe('dotenv-flexible', () => {
 		test('overrides', () => {
 			expect(process.env.DEF).toEqual('otherthing');
 		});
+		test('interpolation overrides', () => {
+			expect(process.env.INTERPOLATE_BASE).toEqual('http://localhost:8080');
+		});
 		test('interpolation with missing values', () => {
 			expect(process.env.MISSING).toEqual('');
 		});

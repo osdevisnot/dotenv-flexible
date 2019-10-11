@@ -11,7 +11,9 @@ export default (options: any = {}) => {
 
 	const cwd = isDefined(options) && isDefined(options.dir) ? options.dir : process.cwd();
 
-	[`.env.${env}`, `.env`].forEach(relative => {
+	const _cache = {};
+
+	[`.env`, `.env.${env}`].forEach(relative => {
 		const absolute = join(cwd, relative);
 
 		if (existsSync(absolute)) {
@@ -25,7 +27,7 @@ export default (options: any = {}) => {
 						// tslint:disable-next-line:prefer-const
 						let [, key, value] = keyVal;
 
-						if (!isDefined(process.env[key])) {
+						if (!isDefined(process.env[key]) || _cache[key]) {
 							while (value.match(/\$\{process.env.(.*?)\}/)) {
 								value = value.replace(/\$\{process.env.(.*?)\}/, (_, b) => {
 									if (isDefined(process.env[b])) {
@@ -38,6 +40,7 @@ export default (options: any = {}) => {
 									}
 								});
 							}
+							_cache[key] = value;
 							process.env[key] = value;
 						}
 					}
