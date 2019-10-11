@@ -4,10 +4,10 @@ import { name, version } from '../package.json';
 
 const log = message => console.log(`${name}@${version} - ${message}`);
 
-const isDefined = value => (typeof value !== 'undefined' && value !== null ? true : false);
+const isDefined = value => (typeof value !== 'undefined' && value !== null && value !== '' ? true : false);
 
 export default (options: any = {}) => {
-	const env = isDefined(process.env.NODE_ENV) && process.env.NODE_ENV !== '' ? process.env.NODE_ENV : 'development';
+	const env = isDefined(process.env.NODE_ENV) ? process.env.NODE_ENV : 'development';
 
 	const wd = isDefined(options) && isDefined(options.dir) ? options.dir : process.cwd();
 
@@ -18,7 +18,7 @@ export default (options: any = {}) => {
 			const content = readFileSync(absolute, 'utf-8').toString();
 
 			content.split(/\n|\r|\r\n/).forEach(line => {
-				if (isDefined(line) && line !== '') {
+				if (isDefined(line)) {
 					const keyVal = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
 
 					if (isDefined(keyVal)) {
