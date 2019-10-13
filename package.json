@@ -12,7 +12,6 @@
 	"module": "dist/index.esm.js",
 	"source": "src/index.tsx",
 	"types": "dist/types/index.d.ts",
-	"example": "public/index.tsx",
 	"scripts": {
 		"build": "tslib build",
 		"coverage": "tslib coverage",
